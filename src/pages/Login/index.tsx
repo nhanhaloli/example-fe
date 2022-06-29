@@ -1,16 +1,17 @@
-import { Button, Form, Input } from "antd"
-import { connect, Dispatch, Loading } from "umi";
+import { Button, Form, Input } from 'antd';
+import { connect, Dispatch, Loading } from 'umi';
 import styles from './index.less';
 
 interface Props {
-  loading: Loading
-  dispatch: Dispatch
+  loading: Loading;
+  dispatch: Dispatch;
 }
 
-function Login({loading, dispatch}: Props) {
-  const token = localStorage.getItem('auth')
+function Login({ loading, dispatch }: Props) {
+  const token = localStorage.getItem('auth');
+  console.log('token: ', token);
   if (token) {
-    window.location.replace('/')
+    window.location.replace('/');
   }
 
   const onFinish = (values: any) => {
@@ -18,8 +19,8 @@ function Login({loading, dispatch}: Props) {
       type: 'auth/login',
       payload: {
         values,
-      }
-    })
+      },
+    });
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -43,7 +44,7 @@ function Login({loading, dispatch}: Props) {
             name="username"
             rules={[{ required: true, message: 'Please input your username!' }]}
           >
-            <Input />
+            <Input placeholder="username: admin" />
           </Form.Item>
 
           <Form.Item
@@ -51,7 +52,7 @@ function Login({loading, dispatch}: Props) {
             name="password"
             rules={[{ required: true, message: 'Please input your password!' }]}
           >
-            <Input.Password />
+            <Input.Password placeholder="password: admin" />
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
@@ -60,9 +61,9 @@ function Login({loading, dispatch}: Props) {
             </Button>
           </Form.Item>
         </Form>
-        </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default connect(({loading}: any) => ({loading}))(Login)
+export default connect(({ loading }: any) => ({ loading }))(Login);

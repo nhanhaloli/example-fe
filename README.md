@@ -25,33 +25,45 @@ Scripts provided in `package.json`. It's safe to modify or add additional script
 ### Start project
 
 ```bash
-npm start
+yarn start
 ```
 
 ### Build project
 
 ```bash
-npm run build
+yarn run build
 ```
 
 ### Check code style
 
 ```bash
-npm run lint
+yarn run lint
 ```
 
 You can also use script to auto fix some lint error:
 
 ```bash
-npm run lint:fix
+yarn run lint:fix
 ```
 
 ### Test code
 
 ```bash
-npm test
+yarn test
 ```
 
-## More
+## Usage
 
-You can view full document on our [official website](https://pro.ant.design). And welcome any feedback in our [github](https://github.com/ant-design/ant-design-pro).
+_You have to login to go to next page. Info login:_
+
+- username: admin
+- password: admin
+
+<br/>
+
+**On the list page:**
+
+<p>1. You can create new Book (button create)</p>
+<p>2. Go to detail page by click on title</p>
+<p>2. I save all everything on Redux so it all clear when reload</p>
+<p>3. I intent to add update and delete feature but, as my view, it should be simple</p>

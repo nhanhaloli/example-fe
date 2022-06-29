@@ -2,7 +2,6 @@ import type { Settings as LayoutSettings } from '@ant-design/pro-layout';
 import { PageLoading } from '@ant-design/pro-layout';
 import type { RunTimeLayoutConfig } from 'umi';
 import { history } from 'umi';
-import jwt_decode from "jwt-decode";
 import defaultSettings from '../config/defaultSettings';
 
 const loginPath = '/login';
@@ -22,13 +21,12 @@ export async function getInitialState(): Promise<{
   fetchUserInfo?: () => Promise<any>;
 }> {
   const fetchUserInfo = async () => {
-    const token = localStorage.getItem('auth')
+    const token = localStorage.getItem('auth');
     if (!token) {
-      // return history.push(loginPath)
+      return history.push(loginPath);
     }
 
-    var decoded = jwt_decode(token);
-    return decoded
+    return { currentUser: 'admin' };
   };
   // 如果不是登录页面，执行
   if (history.location.pathname !== loginPath) {
@@ -45,7 +43,7 @@ export async function getInitialState(): Promise<{
   };
 }
 
-export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
+export const layout: RunTimeLayoutConfig = ({ initialState }) => {
   return {
     disableContentMargin: false,
     waterMarkProps: {
@@ -54,15 +52,11 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     onPageChange: () => {
       const { location } = history;
       if (!initialState?.currentUser && location.pathname !== loginPath) {
-        // history.push(loginPath);
+        history.push(loginPath);
       }
     },
-    childrenRender: (children, props) => {
-      return (
-        <>
-          {children}
-        </>
-      );
+    childrenRender: (children) => {
+      return <>{children}</>;
     },
     ...initialState?.settings,
   };

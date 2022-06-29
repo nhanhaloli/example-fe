@@ -1,12 +1,12 @@
-import { Effect } from 'umi';
+import type { Effect } from 'umi';
 import { message } from 'antd';
-import { login } from '@/api/auth';
 
 interface BookModelType {
   namespace: 'auth';
+  // eslint-disable-next-line @typescript-eslint/ban-types
   state: {};
   effects: {
-    login: Effect
+    login: Effect;
   };
 }
 
@@ -14,17 +14,15 @@ const BookModel: BookModelType = {
   namespace: 'auth',
   state: {},
   effects: {
-    *login({payload}, {call}): any {
-      const response = yield call(login, payload.values)
-      
-      if (response && response.statusCode >= 400) {
-        return message.error(response.message)
+    *login({ payload }, {}): any {
+      if (payload.values.username === 'admin' && payload.values.password === 'admin') {
+        localStorage.setItem('auth', JSON.stringify(payload.values));
+        window.location.replace('/');
+        return;
       }
-      
-      localStorage.setItem('auth', response.access_token)
-      window.location.replace('/')
-    }
+      return message.error('Wrong username or password');
+    },
   },
-}
+};
 
-export default BookModel
+export default BookModel;
